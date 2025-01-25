@@ -50,6 +50,7 @@ const eslintConfig = tsEslint.config(
           },
         },
       ],
+      '@typescript-eslint/no-empty-object-type': ['error', { allowObjectTypes: 'always' }],
       '@typescript-eslint/no-explicit-any': [
         'error',
         {
