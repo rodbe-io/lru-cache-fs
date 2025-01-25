@@ -16,12 +16,12 @@ const getCacheFilePath = ({ cacheName, cachePath }: { cacheName: string; cachePa
   return join(cachePathDirectory, cacheName);
 };
 
-type CacheFactoryParams<Key extends {}, Value extends {}, FC> = LRUCache.Options<Key, Value, FC> & {
+type FsCacheParams<Key extends {}, Value extends {}, FC = unknown> = LRUCache.Options<Key, Value, FC> & {
   cacheName: string;
   cachePath?: string;
 };
 
-export const cacheFactory = <Key extends {}, Value extends {}, FC>(opts: CacheFactoryParams<Key, Value, FC>) => {
+export const fsCache = <Key extends {}, Value extends {}, FC = unknown>(opts: FsCacheParams<Key, Value, FC>) => {
   const cache = new LRUCache(opts);
   const cacheFilePath = getCacheFilePath({ cacheName: opts.cacheName, cachePath: opts.cachePath });
   const loadedCache = readJsonFile<Array<[Key, LRUCache.Entry<Value>]>>(cacheFilePath);
