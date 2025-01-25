@@ -19,7 +19,7 @@ npm i @rodbe/lru-cache-fs --save
 This library exntends the [lru-cache] library, and adds a `syncFs` property to the cache instance, to enable cache persistence on the FS
 
 ### Configuration Options
-The cacheFactory **accepts all options available in** [lru-cache] along with the following additional parameters:
+The `fsCache` **accepts all options available in** [lru-cache] along with the following additional parameters:
 
 - `cacheName` (string): The filename for storing the cached data.
 
@@ -29,13 +29,13 @@ The cacheFactory **accepts all options available in** [lru-cache] along with the
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 
-import { cacheFactory } from 'lru-cache-fs';
+import { fsCache } from 'lru-cache-fs';
 
 interface MyValue {
   data: string;
 }
 
-const myCache = cacheFactory<string, MyValue>({
+const myCache = fsCache<string, MyValue>({
   cacheName: 'my-cache-file.json', // or without file extension
   cachePath: join(homedir(), '.my-libray-folder');
   max: 50,
@@ -75,7 +75,7 @@ myCache.dump(); // Return the actual cache in memory, can be passed to LRUCache#
 ```
 
 ### Loading Cached Data
-When you create a cache instance using cacheFactory, it will **automatically load any cached data from the specified file**. If the file doesn't exist or is not in JSON format, the cache will start empty.
+When you create a cache instance using `fsCache`, it will **automatically load any cached data from the specified file**. If the file doesn't exist or is not in JSON format, the cache will start empty.
 
 ### Dumping Cache to File
 The cache state is automatically saved to the specified file whenever an item is set or removed, or the cache is cleared.
