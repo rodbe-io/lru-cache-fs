@@ -29,7 +29,7 @@ The `fsCache` **accepts all options available in** [lru-cache] along with the fo
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 
-import { fsCache } from 'lru-cache-fs';
+import { fsCache } from '@rodbe/lru-cache-fs';
 
 interface MyValue {
   data: string;
@@ -39,6 +39,8 @@ const myCache = fsCache<string, MyValue>({
   cacheName: 'my-cache-file.json', // or without file extension
   cachePath: join(homedir(), '.my-libray-folder');
   max: 50,
+  // how long to live in ms
+  ttl: 1000 * 60 * 5,
 });
 
 // add value to the cache
