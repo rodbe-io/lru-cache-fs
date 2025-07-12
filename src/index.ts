@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 
@@ -9,9 +9,7 @@ import { readJsonFile } from '@/utils/fs';
 const getCacheFilePath = ({ cacheName, cachePath }: { cacheName: string; cachePath?: string }) => {
   const cachePathDirectory = cachePath ?? homedir();
 
-  if (!existsSync(cachePathDirectory)) {
-    mkdirSync(cachePathDirectory);
-  }
+  mkdirSync(cachePathDirectory, { recursive: true });
 
   return join(cachePathDirectory, cacheName);
 };
